@@ -24,6 +24,8 @@ public class Canvas {
     private boolean drawLineMode = true;
     private boolean drawDottedLineMode = false;
     private boolean drawPolygonMode = false;
+    private int mouseX; // aktuální x-ová pozice myši
+    private int mouseY; // aktuální y-ová pozice myši
 
     public Canvas(int width, int height) {
         // Inicializace hlavního okna
@@ -198,6 +200,25 @@ public class Canvas {
         dottedLineButton.addActionListener(e -> setDrawMode(false, true, false));
         polygonButton.addActionListener(e -> setDrawMode(false, false, true));
 
+        // Posluchač myši pro aktualizaci koordinát myši
+        panel.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                updateMouseCoordinates(e.getX(), e.getY());
+                if (drawLineMode || drawDottedLineMode) {
+                    updateMouseCoordinates(e.getX(), e.getY());
+                    panel.repaint();
+                }
+            }
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                if (drawPolygonMode) {
+                    updateMouseCoordinates(e.getX(), e.getY());
+                }
+            }
+        });
+
+
         // Nastavení hlavního okna
         frame.add(panel, BorderLayout.CENTER);
         frame.add(buttonPanel, BorderLayout.WEST);
@@ -217,6 +238,8 @@ public class Canvas {
     // Metoda pro vykreslení plátna
     public void present(Graphics graphics) {
         raster.repaint(graphics);
+        graphics.setColor(Color.RED);
+        graphics.drawString("Mouse: X=" + mouseX + ", Y=" + mouseY, 10, 20);
     }
 
     // Metoda pro zahájení kreslení
@@ -233,6 +256,13 @@ public class Canvas {
         raster.clear();
         panel.repaint();
     }
+
+    // Metoda pro aktualizaci koordinát myši
+    public void updateMouseCoordinates(int x, int y) {
+        mouseX = x;
+        mouseY = y;
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Canvas(800, 600).start());
