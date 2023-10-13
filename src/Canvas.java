@@ -81,7 +81,7 @@ public class Canvas {
                     polygon = new Polygon();
                     raster.clear();
                     panel.repaint();
-                } else if (e.getKeyCode() == KeyEvent.VK_DELETE){
+                } else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
                     if (drawPolygonMode && polygon.size() > 0) {
                         // Ваш код для удаления вершины
                     }
@@ -220,10 +220,12 @@ public class Canvas {
         raster.setClearColor(color);
         raster.clear();
     }
+
     // Metoda pro vykreslení plátna
     public void present(Graphics graphics) {
         raster.repaint(graphics);
     }
+
     // Metoda pro zahájení kreslení
     public void start() {
         clear(0xaaaaaa);
