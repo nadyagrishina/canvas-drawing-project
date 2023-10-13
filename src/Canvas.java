@@ -238,8 +238,8 @@ public class Canvas {
     // Metoda pro vykreslení plátna
     public void present(Graphics graphics) {
         raster.repaint(graphics);
-        graphics.setColor(Color.RED);
-        graphics.drawString("Mouse: X=" + mouseX + ", Y=" + mouseY, 10, 20);
+        graphics.setColor(new Color(0xCC, 0xCC, 0xFF));
+        graphics.drawString("Mouse: X=" + mouseX + ", Y=" + mouseY, 20, 30);
     }
 
     // Metoda pro zahájení kreslení
@@ -262,8 +262,6 @@ public class Canvas {
         mouseX = x;
         mouseY = y;
     }
-
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Canvas(800, 600).start());
     }
