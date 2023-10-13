@@ -6,10 +6,9 @@ import rasterize.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.Serial;
 
 /**
- * @author PGRF FIM UHK
+ * @author Nadezhda Grishina
  * @version 2023.c04
  */
 
@@ -61,8 +60,6 @@ public class Canvas {
 
         // Inicializace hlavního panelu pro kreslení
         panel = new JPanel() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -81,10 +78,6 @@ public class Canvas {
                     polygon = new Polygon();
                     raster.clear();
                     panel.repaint();
-                } else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
-                    if (drawPolygonMode && polygon.size() > 0) {
-                        // Ваш код для удаления вершины
-                    }
                 }
             }
 
