@@ -6,6 +6,7 @@ import rasterize.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serial;
 
 /**
  * @author Nadezhda Grishina
@@ -51,7 +52,27 @@ public class Canvas {
 
         frame.setLayout(new BorderLayout());
         frame.setTitle("UHK FIM PGRF : " + this.getClass().getName());
+        frame.setResizable(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
+        // Inicializace hlavního panelu pro kreslení
+        panel = new JPanel() {
+            @Serial
+            private static final long serialVersionUID = 1L;
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                present(g);
+            }
+        };
+
+        // Nastavení hlavního okna
+        panel.setPreferredSize(new Dimension(width, height));
+        frame.add(panel, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.WEST);
+        frame.pack();
+        frame.setVisible(true);
 
         // Inicializace rastrového plátna
         raster = new RasterBufferedImage(width, height);
@@ -59,16 +80,6 @@ public class Canvas {
         dottedLineRasterizer = new DottedLineRasterizer(raster, 5);
         polygonRasterizer = new PolygonRasterizer(lineRasterizer);
         polygon = new Polygon();
-
-        // Inicializace hlavního panelu pro kreslení
-        panel = new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                present(g);
-            }
-        };
-        panel.setPreferredSize(new Dimension(width, height));
 
         // Posluchač klávesnice
         KeyAdapter keyListener = new KeyAdapter() {
@@ -218,12 +229,6 @@ public class Canvas {
             }
         });
 
-
-        // Nastavení hlavního okna
-        frame.add(panel, BorderLayout.CENTER);
-        frame.add(buttonPanel, BorderLayout.WEST);
-        frame.pack();
-        frame.setVisible(true);
         panel.requestFocus();
         panel.requestFocusInWindow();
         panel.setFocusable(true);
