@@ -21,6 +21,7 @@ public class Canvas {
     private PolygonRasterizer polygonRasterizer;
     private Polygon polygon;
     private Line line;
+    private Point lineStartPoint;
     private boolean shiftPressed = false;
     private boolean drawLineMode = true;
     private boolean drawDottedLineMode = false;
@@ -157,8 +158,11 @@ public class Canvas {
             public void mouseDragged(MouseEvent e) {
                 if (drawLineMode || drawDottedLineMode) {
                     raster.clear();
+                    if (lineStartPoint == null) {
+                        lineStartPoint = new Point(e.getX(), e.getY());
+                    }
                     // Počáteční bod
-                    Point p1 = new Point(width / 2, height / 2);
+                    Point p1 = lineStartPoint;
                     // Koncový bod určený polohou myši
                     Point p2 = new Point(e.getX(), e.getY());
                     // Výpočet rozdílu v ose x a y
@@ -203,6 +207,13 @@ public class Canvas {
                     // Obnovení zobrazení panelu
                     panel.repaint();
                 }
+            }
+        });
+
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                lineStartPoint = null;
             }
         });
 
