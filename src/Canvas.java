@@ -94,7 +94,6 @@ public class Canvas {
                     panel.repaint();
                 }
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
@@ -209,7 +208,7 @@ public class Canvas {
                 }
             }
         });
-
+        //přidaní startu čary
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -239,7 +238,6 @@ public class Canvas {
                 }
             }
         });
-
         panel.requestFocus();
         panel.requestFocusInWindow();
         panel.setFocusable(true);
