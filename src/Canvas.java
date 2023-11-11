@@ -216,7 +216,6 @@ public class Canvas {
             }
         });
 
-
         // Posluchače pro tlačítka
         lineButton.addActionListener(e -> setDrawMode(true, false, false));
         dottedLineButton.addActionListener(e -> setDrawMode(false, true, false));
