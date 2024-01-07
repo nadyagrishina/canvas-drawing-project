@@ -1,5 +1,7 @@
 package rasterize;
 
+import java.awt.*;
+
 public class FilledLineRasterizer extends LineRasterizer {
     public FilledLineRasterizer(Raster raster) {
         super(raster);
@@ -21,7 +23,7 @@ public class FilledLineRasterizer extends LineRasterizer {
      */
 
     @Override
-    protected void drawLine(int x1, int y1, int x2, int y2) {
+    protected void drawLine(int x1, int y1, int x2, int y2, Color color) {
         // Výpočet délky úsečky v osách x a y
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
@@ -32,23 +34,26 @@ public class FilledLineRasterizer extends LineRasterizer {
         int sy = (y1 < y2) ? 1 : -1;
 
         // Počáteční hodnota chyby
-        int err = dx - dy;
+        int error = dx - dy;
 
         while (x1 != x2 || y1 != y2) {
-            // Nastavení pixelu na pozici (x1, y1) na zelenou barvu
-            raster.setPixel(x1, y1, 0xf658b8);
+            // Nastavení pixelu na pozici (x1, y1) na zadanou barvu
+            raster.setPixel(x1, y1, color);
+
             // Dvojnásobná hodnota chyby
-            int err2 = 2 * err;
-            if (err2 > -dy) {
-                err -= dy;
+            int error2 = 2 * error;
+
+            // Podmínky pro inkrementaci hodnot x a y
+            if (error2 > -dy) {
+                error -= dy;
                 x1 += sx; // Přesun na další pixel v ose x
             }
-            if (err2 < dx) {
-                err += dx;
+            if (error2 < dx) {
+                error += dx;
                 y1 += sy; // Přesun na další pixel v ose y
             }
         }
-        // Nastavení posledního pixelu (x2, y2) na zelenou barvu
-        raster.setPixel(x2, y2, 0xf658b8);
+        // Nastavení posledního pixelu (x2, y2) na zadanou barvu
+        raster.setPixel(x2, y2, color);
     }
 }

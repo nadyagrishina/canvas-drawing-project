@@ -1,4 +1,7 @@
 package rasterize;
+
+import java.awt.*;
+
 public class DottedLineRasterizer extends LineRasterizer {
     private final int dotSize;
 
@@ -10,7 +13,7 @@ public class DottedLineRasterizer extends LineRasterizer {
     // Třída pro rasterizaci tečkovaných úseček pomocí Bresenhamova algoritmu
 
     @Override
-    protected void drawLine(int x1, int y1, int x2, int y2) {
+    protected void drawLine(int x1, int y1, int x2, int y2, Color color) {
         // Výpočet délky úsečky v osách x a y
         int dx = Math.abs(x2 - x1);
         int dy = Math.abs(y2 - y1);
@@ -28,7 +31,7 @@ public class DottedLineRasterizer extends LineRasterizer {
         while (x1 != x2 || y1 != y2) {
             if (pixelCounter % dotSize == 0) {
                 // Nastavení pixelu na pozici (x1, y1) na zelenou barvu
-                raster.setPixel(x1, y1, 0xf658b8);
+                raster.setPixel(x1, y1, color);
             }
 
             // Dvojnásobná hodnota chyby
@@ -48,6 +51,6 @@ public class DottedLineRasterizer extends LineRasterizer {
         }
 
         // Nastavení posledního pixelu (x2, y2) na zelenou barvu
-        raster.setPixel(x2, y2, 0xf658b8);
+        raster.setPixel(x2, y2, color);
     }
 }

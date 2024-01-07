@@ -8,11 +8,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.Serial;
 
-/**
- * @author Nadezhda Grishina
- * @version 2023.c04
- */
-
 public class Canvas {
     private final JPanel panel;
     private RasterBufferedImage raster;
@@ -20,6 +15,7 @@ public class Canvas {
     private LineRasterizer dottedLineRasterizer;
     private PolygonRasterizer polygonRasterizer;
     private Polygon polygon;
+    private Point lineStartPoint;
     private Line line;
     private boolean shiftPressed = false;
     private boolean drawLineMode = true;
@@ -123,8 +119,8 @@ public class Canvas {
                 dottedLineRasterizer = new DottedLineRasterizer(newRaster, 5);
                 lineRasterizer = new FilledLineRasterizer(newRaster);
                 polygonRasterizer = new PolygonRasterizer(lineRasterizer);
-                polygonRasterizer.rasterize(polygon);
-                lineRasterizer.rasterize(line);
+                polygonRasterizer.rasterize(polygon, Color.decode("0xf658b8"));
+                lineRasterizer.rasterize(line, Color.decode("0xf658b8"));
                 raster = newRaster;
                 panel.repaint();
             }
@@ -139,12 +135,17 @@ public class Canvas {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if (drawLineMode){
+                    if (lineStartPoint == null) {
+                        lineStartPoint = new Point(e.getX(), e.getY());
+                    }
+                }
                 if (drawPolygonMode) {
                     raster.clear();
                     Point p = new Point(e.getX(), e.getY());
                     polygon.addPoint(p);
                     if (polygon.size() >= 3) {
-                        polygonRasterizer.rasterize(polygon);
+                        polygonRasterizer.rasterize(polygon, Color.decode("0xf658b8"));
                     }
                     panel.repaint();
                 }
@@ -157,8 +158,11 @@ public class Canvas {
             public void mouseDragged(MouseEvent e) {
                 if (drawLineMode || drawDottedLineMode) {
                     raster.clear();
+                    if (lineStartPoint == null) {
+                        lineStartPoint = new Point(e.getX(), e.getY());
+                    }
                     // Počáteční bod
-                    Point p1 = new Point(width / 2, height / 2);
+                    Point p1 = lineStartPoint;
                     // Koncový bod určený polohou myši
                     Point p2 = new Point(e.getX(), e.getY());
                     // Výpočet rozdílu v ose x a y
@@ -193,16 +197,23 @@ public class Canvas {
                             p2.x = p1.x;
                         }
                     }
-                    line = new Line(p1, p2, 0xf658b8);
+                    line = new Line(p1, p2);
                     if (drawDottedLineMode) {
-                        dottedLineRasterizer.rasterize(line);
+                        dottedLineRasterizer.rasterize(line, Color.decode("0xf658b8"));
                     } else if (drawLineMode) {
-                        lineRasterizer.rasterize(line);
+                        lineRasterizer.rasterize(line, Color.decode("0xf658b8"));
                     }
-
                     // Obnovení zobrazení panelu
                     panel.repaint();
                 }
+            }
+        });
+
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                    super.mouseReleased(e);
+                    resetLineStartPoint();
             }
         });
 
@@ -252,7 +263,9 @@ public class Canvas {
         clear(0xaaaaaa);
         panel.repaint();
     }
-
+    private void resetLineStartPoint() {
+        lineStartPoint = null;
+    }
     // Nastavení režimu kreslení
     private void setDrawMode(boolean line, boolean dottedLine, boolean polygon) {
         drawLineMode = line;
