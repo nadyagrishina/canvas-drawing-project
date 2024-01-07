@@ -17,6 +17,7 @@ public class Canvas {
     private Polygon polygon;
     private Point lineStartPoint;
     private Line line;
+    private Point lineStartPoint;
     private boolean shiftPressed = false;
     private boolean drawLineMode = true;
     private boolean drawDottedLineMode = false;
@@ -89,7 +90,6 @@ public class Canvas {
                     panel.repaint();
                 }
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
@@ -208,6 +208,13 @@ public class Canvas {
                 }
             }
         });
+        //přidaní startu čary
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                lineStartPoint = null;
+            }
+        });
 
         panel.addMouseListener(new MouseAdapter() {
             @Override
@@ -239,7 +246,6 @@ public class Canvas {
                 }
             }
         });
-
         panel.requestFocus();
         panel.requestFocusInWindow();
         panel.setFocusable(true);
