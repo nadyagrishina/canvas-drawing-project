@@ -24,7 +24,7 @@ Ideal for exploring basic computer graphics and user interface design in Java.
 
 ## 🖼️ Screenshots
 
-![Canvas Screenshot](screenshot.png)
+![Canvas Screenshot](capture.gif)
 
 ---
 
