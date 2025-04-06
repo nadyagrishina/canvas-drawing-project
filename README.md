@@ -22,7 +22,7 @@ Ideal for exploring basic computer graphics and user interface design in Java.
 
 ---
 
-## 🖼️ Screenshots
+> ✨ Live demo below ↓
 
 ![Canvas Screenshot](capture.gif)
 
