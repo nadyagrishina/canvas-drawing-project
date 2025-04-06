@@ -1,7 +1,7 @@
 # 🎨 Canvas Drawing Project
 
 **Author:** Nadezhda Grishina  
-**Version:** 2023.c04
+**Version:** 2023
 
 ---
 
