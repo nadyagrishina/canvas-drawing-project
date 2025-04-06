@@ -1,19 +1,35 @@
-Canvas Drawing Project
+# 🎨 Canvas Drawing Project
 
-Author: Nadezhda Grishina <br>
-Version: 2023.c04
+**Author:** Nadezhda Grishina  
+**Version:** 2023.c04
 
-Description:
-------------
-The "Canvas" project is an application for drawing lines and polygons. It is developed using Java and Swing.
+---
 
-Features:
-------------
-- Drawing regular lines
-- Drawing dotted lines
-- Drawing polygons
-- Clearing all drawn objects by pressing the "C" key
-- Using the Shift key for drawing horizontal, vertical, or diagonal lines
+## 🧩 Description
 
-GitLab: https://gitlab.com/jakub.benes.student1/pgrf1-task01
+The **Canvas Drawing Project** is a Java Swing-based desktop application that allows users to interactively draw lines and polygons on a digital canvas.  
+Ideal for exploring basic computer graphics and user interface design in Java.
 
+---
+
+## 🚀 Features
+
+- 🖊️ **Regular lines** – Click and drag to draw straight lines.
+- 🎯 **Dotted lines** – Create stylish dotted lines.
+- 🔺 **Polygons** – Connect multiple points to form polygons.
+- 🧹 **Clear canvas** – Press **`C`** to clear all drawings.
+- 🔄 **Shift key support** – Hold **`Shift`** to draw horizontal, vertical, or 45° diagonal lines.
+
+---
+
+## 🖼️ Screenshots
+
+![Canvas Screenshot](screenshot.png)
+
+---
+
+## 🛠️ Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nadyagrishina/canvas-drawing-project.git

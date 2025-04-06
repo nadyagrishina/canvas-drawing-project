@@ -17,7 +17,6 @@ public class Canvas {
     private Polygon polygon;
     private Point lineStartPoint;
     private Line line;
-    private Point lineStartPoint;
     private boolean shiftPressed = false;
     private boolean drawLineMode = true;
     private boolean drawDottedLineMode = false;
